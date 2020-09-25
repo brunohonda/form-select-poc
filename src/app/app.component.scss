@@ -1,0 +1,59 @@
+
+.col {
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  margin: 5px 10px;
+}
+
+.wrapper {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+
+  nav {
+    background-color: #f7f7f7;
+    width: 300px;
+    overflow-x: hidden;
+  }
+
+  main {
+    flex: 1;
+    position: relative;
+
+    h1 {
+      background-color: purple;
+      color: white;
+      line-height: 5rem;
+      padding: 0 15px;
+    }
+
+    .question {
+      margin: 15px;
+      color: grey;
+
+      h2 {
+        color: #666666;
+      }
+    }
+
+    .select-user {
+      position: absolute;
+      bottom: 15px;
+      right: 15px;;
+    }
+  }
+
+  aside {
+    background-color: #f7f7f7;
+    width: 300px;
+    overflow-x: hidden;
+
+    div {
+      flex: 1;
+      overflow-y: auto;
+    }
+  }
+}
