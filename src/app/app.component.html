@@ -23,7 +23,8 @@
       <mat-divider></mat-divider>
     </div>
     <button class="select-user"
-      mat-fab color="accent"
+      mat-fab
+      [color]="userIsSelected(focusedUser) ? 'warn' : 'accent'"
       aria-label="Select user"
       [disabled]="!focusedUser"
       (click)="toggleUser(focusedUser)"
