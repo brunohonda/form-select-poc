@@ -1,11 +1,14 @@
+button {
+  margin: 5px 10px;
+}
 
 .col {
   display: flex;
   flex-direction: column;
 }
 
-button {
-  margin: 5px 10px;
+*[cdkDrag] {
+  cursor: move;
 }
 
 .wrapper {
@@ -27,16 +30,13 @@ button {
       background-color: purple;
       color: white;
       line-height: 5rem;
+      margin: 0;
       padding: 0 15px;
     }
 
     .question {
       margin: 15px;
       color: grey;
-
-      h2 {
-        color: #666666;
-      }
     }
 
     .select-user {
@@ -56,4 +56,17 @@ button {
       overflow-y: auto;
     }
   }
+}
+
+h1, h2, h3, h4, h5 {
+  margin: 5px;
+  color: #666666;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-underline {
+  text-decoration: underline;
 }

@@ -1,3 +1,4 @@
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -18,7 +19,44 @@ export class AppComponent implements OnInit {
     ];
   }
 
-  selectUser(user) {
-    this.selectedUsers.push(Object.assign({}, user));
+  toggleUser(toggledUser) {
+    let originList;
+    let destinationList;
+    let originIndex;
+    let destinationIndex;
+
+    if (!this.userIsSelected(toggledUser)) {
+      originList = this.users;
+      destinationList = this.selectedUsers;
+      originIndex = this.selectedUsers.findIndex((user) => user.email === toggledUser.email);
+      destinationIndex = this.users.length;
+    } else {
+      originList = this.selectedUsers;
+      destinationList = this.users;
+      originIndex = this.users.findIndex((user) => user.email === toggledUser.email);
+      destinationIndex = this.selectedUsers.length;
+    }
+
+    transferArrayItem(
+      originList,
+      destinationList,
+      originIndex,
+      destinationIndex
+    );
+  }
+
+  drop(event: CdkDragDrop<any[]>) {
+    if (event.previousContainer !== event.container) {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    }
+  }
+
+  userIsSelected(toggledUser) {
+    return this.selectedUsers.length === 0 ? false : this.selectedUsers.every((selectedUser) => toggledUser.email !== selectedUser.email);
   }
 }

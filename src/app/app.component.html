@@ -1,6 +1,16 @@
 <div class="wrapper">
-  <nav class="col">
-    <button mat-raised-button color="primary"
+  <nav class="col"
+    cdkDropList
+    #usersList="cdkDropList"
+    [cdkDropListData]="users"
+    [cdkDropListConnectedTo]="[selectedUsersList]"
+    (cdkDropListDropped)="drop($event)"
+  >
+    <h3 class="text-center text-underline">Candidatos</h3>
+    <button class="dragable"
+      mat-raised-button
+      color="primary"
+      cdkDrag
       *ngFor="let user of users"
       (click)="focusedUser = user"
     >{{ user.email }}</button>
@@ -16,14 +26,26 @@
       mat-fab color="accent"
       aria-label="Select user"
       [disabled]="!focusedUser"
-      (click)="selectUser(focusedUser)"
+      (click)="toggleUser(focusedUser)"
     >
-      <mat-icon>check</mat-icon>
+      <mat-icon>{{ userIsSelected(focusedUser) ? 'person_remove' : 'person_add' }}</mat-icon>
     </button>
   </main>
   <aside class="col">
-    <div class="col">
-      <button mat-raised-button *ngFor="let user of selectedUsers">{{ user.email }}</button>
+    <h3 class="text-center text-underline">Selecionados</h3>
+    <div class="col"
+      cdkDropList
+      #selectedUsersList="cdkDropList"
+      [cdkDropListData]="selectedUsers"
+      [cdkDropListConnectedTo]="[usersList]"
+      (cdkDropListDropped)="drop($event)"
+    >
+      <button
+        mat-raised-button
+        *ngFor="let user of selectedUsers"
+        cdkDrag
+        (click)="focusedUser = user"
+      >{{ user.email }}</button>
     </div>
     <button mat-raised-button color="primary" [disabled]="selectedUsers.length === 0">Inserir</button>
   </aside>
