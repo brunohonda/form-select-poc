@@ -61,6 +61,10 @@ export class AppComponent implements OnInit {
   }
 
   userIsSelected(toggledUser) {
+    if (!toggledUser) {
+      return false;
+    }
+
     if (this.selectedUsers.length === 0) {
       return false;
     }
