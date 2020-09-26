@@ -12,7 +12,7 @@
       color="primary"
       cdkDrag
       *ngFor="let user of users"
-      (click)="focusedUser = user"
+      (click)="focusUser(user)"
     >{{ user.email }}</button>
   </nav>
   <main>
@@ -44,7 +44,7 @@
         mat-raised-button
         *ngFor="let user of selectedUsers"
         cdkDrag
-        (click)="focusedUser = user"
+        (click)="focusUser(user)"
       >{{ user.email }}</button>
     </div>
     <button mat-raised-button color="primary" [disabled]="selectedUsers.length === 0">Inserir</button>

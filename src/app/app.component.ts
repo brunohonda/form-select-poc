@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit {
   users: any[];
-  focusedUser: any;
+  focusedUser: any = null;
   selectedUsers: any[] = [];
 
   ngOnInit() {
@@ -17,6 +17,10 @@ export class AppComponent implements OnInit {
       { email: 'candidato2@yopmail.com', responses: [ { question: 'Question 1?', response: 'HGJhkjf hkdfv'}, { question: 'Question 2?', response: 'f shdf bjhskgb hsfkgb'}, { question: 'Question 3?', response: 'lsd fhldfj gl'} ] },
       { email: 'candidato3@yopmail.com', responses: [ { question: 'Question 1?', response: 'f gndfghn hgn  rgh'}, { question: 'Question 2?', response: 'fhnghnmrgh mngh'}, { question: 'Question 3?', response: 'Joofg o jgb jsflg'} ] },
     ];
+  }
+
+  focusUser(user) {
+    this.focusedUser = Object.assign({}, user);
   }
 
   toggleUser(toggledUser) {
@@ -28,13 +32,13 @@ export class AppComponent implements OnInit {
     if (!this.userIsSelected(toggledUser)) {
       originList = this.users;
       destinationList = this.selectedUsers;
-      originIndex = this.selectedUsers.findIndex((user) => user.email === toggledUser.email);
-      destinationIndex = this.users.length;
+      originIndex = this.users.findIndex((user) => user.email === toggledUser.email);
+      destinationIndex = this.selectedUsers.length;
     } else {
       originList = this.selectedUsers;
       destinationList = this.users;
-      originIndex = this.users.findIndex((user) => user.email === toggledUser.email);
-      destinationIndex = this.selectedUsers.length;
+      originIndex = this.selectedUsers.findIndex((user) => user.email === toggledUser.email);
+      destinationIndex = this.users.length;
     }
 
     transferArrayItem(
@@ -57,6 +61,10 @@ export class AppComponent implements OnInit {
   }
 
   userIsSelected(toggledUser) {
-    return this.selectedUsers.length === 0 ? false : this.selectedUsers.every((selectedUser) => toggledUser.email !== selectedUser.email);
+    if (this.selectedUsers.length === 0) {
+      return false;
+    }
+
+    return this.selectedUsers.findIndex((selectedUser) => toggledUser.email === selectedUser.email) >= 0;
   }
 }
